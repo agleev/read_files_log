@@ -1,5 +1,9 @@
 #!/bin/bash
 
+extract_datetime(){
+
+}
+
 parce_log_file(){
     local subdir=$1
     log_files=$(find $subdir -maxdepth 1 -type f -name "*.log")
