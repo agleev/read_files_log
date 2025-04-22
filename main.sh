@@ -1,7 +1,15 @@
 #!/bin/bash
 
 extract_datetime(){
-
+    local input_str1=$1
+    local input_str2=$2
+    datetime=$(echo "$input_str1" | grep -oP '\[\K[0-9- :]+(?=\])')
+    datetime=$(echo "$input_str2" | grep -oP '\[\K[0-9- :]+(?=\])')
+    timestamp1=$(date -d "$datetime1" +%s)
+    timestamp2=$(date -d "$datetime2" +%s)
+    diff_seconds=$((timestamp2 - timestamp1))
+    diff_minutes=$((diff_seconds / 60))    
+    echo "Time: $diff_minutes" >> $LOG
 }
 
 parce_log_file(){
@@ -16,10 +24,11 @@ parce_log_file(){
 
             local first=$(head -n 1 "$log_file")
             local last=$(tail -n 1 "$log_file")
-
+            
             echo "Source $basename_sub_dir" >> $LOG
             echo "$first" >> $LOG
             echo "$last" >> $LOG
+            extract_datetime $first $last
             echo "" >> $LOG
 
         fi
